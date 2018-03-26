@@ -20,7 +20,4 @@ public class Account {
 	@JsonProperty
 	private String telephone;
 	
-	public Account() {
-	}
-	
 }
