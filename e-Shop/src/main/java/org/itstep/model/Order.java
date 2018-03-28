@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Order {
 
 	@JsonProperty
-	private String idOrder;
+	private Integer idOrder;
 	
 	@JsonProperty
 	//@ManyToOne
