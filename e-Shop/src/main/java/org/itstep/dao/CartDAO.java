@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartDAO extends JpaRepository<Cart, Integer>{
 
-	List<Cart> findAllByAccountLogin(Account acc);
+
+	List<Cart> findAllByAccount(Account account);
 	
 	@Query(value="SELECT * FROM carts WHERE creation_time>?1 AND creation_time<?2", nativeQuery=true)
 	List<Cart> findAllByCreationTime(Long startPeriod, Long endPeriod);
