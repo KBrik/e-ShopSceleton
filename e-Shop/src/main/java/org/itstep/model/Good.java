@@ -8,10 +8,10 @@ import lombok.Data;
 public class Good {
 
 	@JsonProperty
-	private String name;
+	private String articleId;
 	
 	@JsonProperty
-	private String asin;
+	private String name;
 	
 	@JsonProperty
 	private Integer price;

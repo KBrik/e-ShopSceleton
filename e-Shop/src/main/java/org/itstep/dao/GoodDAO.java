@@ -12,9 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface GoodDAO extends JpaRepository<Good, String> {
 	
 	
-	Good findOneByName(String name);
-	
 	@Query(value="SELECT * FROM good WHERE availability=true", nativeQuery=true)
-	List<Good> findAllByAvailability ();
+	List<Good> findAllByAvailability();
 
 }

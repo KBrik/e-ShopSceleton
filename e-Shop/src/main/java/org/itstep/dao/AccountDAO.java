@@ -1,10 +1,12 @@
 package org.itstep.dao;
 
+
+import java.util.List;
+
 import org.itstep.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountDAO extends JpaRepository<Account, Integer> {
+public interface AccountDAO extends JpaRepository<Account, String> {
 
-//    @Query(value = "SELECT * FROM account")
-//    List<Account> findAll(Account login);
+    List<Account> findAllByAccount(Account account);
 }
