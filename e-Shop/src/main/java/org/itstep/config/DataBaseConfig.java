@@ -26,18 +26,13 @@ public class DataBaseConfig {
 
 		HikariConfig config = new HikariConfig();
 
-		HikariDataSource ds;
-
 		config.addDataSourceProperty("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
-		
 		config.setJdbcUrl("jdbc:h2:~/e-shop");
 		config.setUsername("alex");
 		config.setPassword("12345");
 		config.setDriverClassName("org.h2.Driver");
 		
-		ds = new HikariDataSource(config);
-
-		return ds.getDataSource();
+		return new HikariDataSource(config).getDataSource();
 	}
 
 	@Bean
