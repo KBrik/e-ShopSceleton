@@ -59,6 +59,11 @@
      <artifactId>spring-boot-starter-web</artifactId>
      <version>${spring-boot.version}</version>
     </dependency>
+    <dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-data-jpa</artifactId>
+    	<version>${spring-boot.version}</version>
+    </dependency>
   
   <!-- SPRING-CONTEXT -->
    <dependency>
@@ -102,6 +107,18 @@
      <version>1.4.1.RELEASE</version>
  </dependency>
  
+ <!-- JDBC DRIVER -->
+	<dependency>
+    	<groupId>com.h2database</groupId>
+    	<artifactId>h2</artifactId>
+    	<version>1.4.196</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>com.zaxxer</groupId>
+    	<artifactId>HikariCP-java9ea</artifactId>
+    	<version>2.6.1</version>
+	</dependency>
   
   
    	<!-- JUNIT -->
