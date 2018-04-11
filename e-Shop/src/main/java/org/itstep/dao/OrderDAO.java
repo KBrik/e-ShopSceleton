@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderDAO extends JpaRepository<Order, Integer> {
 
+	
 	List<Order> findAllByCart(Cart idCart);
 	
 }
