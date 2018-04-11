@@ -1,57 +1,77 @@
 package org.itstep.config;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.itstep.ApplicationRunner;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
-public class DataBaseConfig {
-	
-	@Autowired
-	JpaVendorAdapter jpaVendorAdapter;
+@EnableJpaRepositories("org.itstep.dao")
+@EnableTransactionManagement
+@EnableAsync
+@EntityScan("org.itstep.model")
+@ConfigurationProperties
+public class DataBaseConfig implements TransactionManagementConfigurer {
 
-	@Bean
-	public DataSource dataSource() {
+    @Value("${dataSource.driverClassName}")
+    private String driver;
+    @Value("${dataSource.url}")
+    private String url;
+    @Value("${dataSource.username}")
+    private String username;
+    @Value("${dataSource.password}")
+    private String password;
+    @Value("${hibernate.dialect}")
+    private String dialect;
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hbm2ddlAuto;
 
-		HikariConfig config = new HikariConfig();
 
-		config.addDataSourceProperty("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
-		config.setJdbcUrl("jdbc:h2:~/e-shop");
-		config.setUsername("alex");
-		config.setPassword("12345");
-		config.setDriverClassName("org.h2.Driver");
-		
-		return new HikariDataSource(config).getDataSource();
-	}
+    @Bean
+    public DataSource configureDataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName(driver);
+        config.setJdbcUrl(url);
+        config.setUsername(username);
+        config.setPassword(password);
 
-	@Bean
-	public EntityManager entityManager() {
-		return entityManagerFactory().createEntityManager();
-	}
+        return new HikariDataSource(config);
+    }
 
-	@Bean
-	public EntityManagerFactory entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-		lef.setDataSource(dataSource());
-		lef.setJpaVendorAdapter(jpaVendorAdapter);
-		lef.setPackagesToScan("org.itstep.*");
-		return lef.getObject();
-	}
+    @Bean
+    public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(configureDataSource());
+        entityManagerFactoryBean.setPackagesToScan("org.itstep.model");
+        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
-	@Bean
-	public PlatformTransactionManager transactionManager() {
-		return new JpaTransactionManager(entityManagerFactory());
-	}
+        Properties jpaProperties = new Properties();
+        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
+        jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);
+        entityManagerFactoryBean.setJpaProperties(jpaProperties);
+
+        return entityManagerFactoryBean;
+    }
+
+    @Bean
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
+        return new JpaTransactionManager();
+    }
 
 }
