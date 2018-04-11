@@ -11,12 +11,16 @@ public class Account {
 	
 	@JsonProperty
 	private String login;
+	
 	@JsonProperty
 	private String password;
+	
 	@JsonProperty
 	private String firstName;
+	
 	@JsonProperty
 	private String secondName;
+	
 	@JsonProperty
 	private String telephone;
 	

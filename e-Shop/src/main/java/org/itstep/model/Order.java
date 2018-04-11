@@ -1,5 +1,7 @@
 package org.itstep.model;
 
+import javax.persistence.ManyToOne;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -13,11 +15,11 @@ public class Order {
 	private Integer idOrder;
 	
 	@JsonProperty
-	//@ManyToOne
+	@ManyToOne
 	private Cart idCart;
 	
 	@JsonProperty
-	//@ManyToOne
+	@ManyToOne
 	private Good idGood;
 
 	
