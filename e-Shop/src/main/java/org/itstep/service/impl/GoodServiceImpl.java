@@ -44,5 +44,4 @@ public class GoodServiceImpl implements GoodService {
 	public List<Good> findAllByAvailability() {
 		return goodDao.findAllByAvailability();
 	}
-	
 }
