@@ -1,6 +1,5 @@
 package org.itstep.dao;
 
-
 import java.util.List;
 
 import org.itstep.model.Good;
@@ -14,5 +13,4 @@ public interface GoodDAO extends JpaRepository<Good, String> {
 	
 	@Query(value="SELECT * FROM good WHERE availability=true", nativeQuery=true)
 	List<Good> findAllByAvailability();
-
 }

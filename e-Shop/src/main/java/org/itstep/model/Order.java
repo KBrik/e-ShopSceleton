@@ -2,6 +2,7 @@ package org.itstep.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,17 +20,16 @@ public class Order {
 
 	@Id
 	@JsonProperty
+	@GeneratedValue
 	@Column(name = "id_order")
 	private Integer idOrder;
 	
 	@JsonProperty
 	@ManyToOne(targetEntity = Cart.class)
-	@Column(name = "id_cart")
 	private Cart idCart;
 	
 	@JsonProperty
 	@ManyToOne(targetEntity = Good.class)
-	@Column(name = "id_good")
 	private Good idGood;
 
 	
