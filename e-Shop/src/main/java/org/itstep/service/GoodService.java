@@ -2,7 +2,6 @@ package org.itstep.service;
 
 import java.util.List;
 
-import org.itstep.model.Cart;
 import org.itstep.model.Good;
 
 public interface GoodService {
@@ -14,7 +13,6 @@ public interface GoodService {
 	Good get(String id);
 	
 	void delete (String id);
-	
+
 	List<Good> findAllByAvailability ();
-	
 }
