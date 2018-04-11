@@ -16,7 +16,7 @@ public class GoodServiceImpl implements GoodService {
 	GoodDAO goodDao;
 
 	public Good save(Good good) {
-		if(goodDao.getOne(good.getAsin()) == null) {
+		if(goodDao.getOne(good.getArticleId()) == null) {
 			return goodDao.save(good);
 		}
 		
@@ -24,7 +24,7 @@ public class GoodServiceImpl implements GoodService {
 	}
 
 	public Good update(Good good) {
-		if(goodDao.getOne(good.getAsin()) != null) {
+		if(goodDao.getOne(good.getArticleId()) != null) {
 			return goodDao.save(good);
 		}
 		return null;
@@ -39,10 +39,6 @@ public class GoodServiceImpl implements GoodService {
 		if(good != null) {
 			goodDao.delete(good);
 		}
-	}
-
-	public Good findOneByName(String name) {
-		return goodDao.findOneByName(name);
 	}
 
 	public List<Good> findAllByAvailability() {
