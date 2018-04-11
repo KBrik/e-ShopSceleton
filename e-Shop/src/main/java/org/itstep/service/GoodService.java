@@ -14,9 +14,7 @@ public interface GoodService {
 	Good get(String id);
 	
 	void delete (String id);
-	
-	Good findOneByName(String name);
-	
+		
 	List<Good> findAllByAvailability ();
 	
 }
