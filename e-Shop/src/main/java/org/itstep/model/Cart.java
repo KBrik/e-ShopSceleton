@@ -20,6 +20,7 @@ public class Cart {
 
 	@JsonProperty
 	@Id
+	@Column(name = "id")
 	private Integer id;
 	
 	@ManyToOne(targetEntity = Account.class)
